@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';">
+    <title>Segreto Cafe | سيجريتو كافيه</title>
+    <!-- Tailwind CSS for Modern Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Arabic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0b0c10;
+            color: #c5c6c7;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header / Navbar -->
+    <header class="fixed w-full z-50 bg-[#0b0c10]/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-widest text-white font-serif">SEGRETO</a>
+            <nav class="hidden md:flex space-x-8 space-x-reverse text-sm font-medium tracking-wide">
+                <a href="#home" class="text-white hover:text-amber-500 transition">الرئيسية</a>
+                <a href="#about" class="hover:text-white transition">قصتنا</a>
+                <a href="#menu" class="hover:text-white transition">المنيو</a>
+                <a href="#booking" class="hover:text-white transition">الحجز المسبق</a>
+                <a href="#gallery" class="hover:text-white transition">أجواؤنا</a>
+                <a href="#contact" class="hover:text-white transition">اتصل بنا</a>
+            </nav>
+            <a href="#booking" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition">احجز طاولتك</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1600&auto=format&fit=crop');">
+        <div class="text-center px-4 max-w-3xl">
+            <span class="text-amber-500 font-serif tracking-widest text-lg block mb-3 uppercase">Welcome to Segreto</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">حيث للقهوة سرٌ لا يُقال، بل يُعاش</h1>
+            <p class="text-gray-400 md:text-xl mb-8 font-light">استمتع بتجربة استثنائية في أجواء مودرن هادئة مصممة خصيصاً لعشاق التميز والهدوء في شارع باريس.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#menu" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-full font-semibold transition">استكشف المنيو</a>
+                <a href="#booking" class="border border-white/40 hover:border-white text-white px-8 py-3 rounded-full font-semibold transition">احجز طاولة ومشروب</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+            <span class="text-amber-500 text-sm font-bold uppercase tracking-wider block mb-2">سر الجودة</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">عن سيجريتو كافيه</h2>
+            <p class="text-gray-400 leading-relaxed mb-6">
+                في "سيجريتو" (وتعني السر باللغة الإيطالية)، نحن لا نقدم مجرد كوب قهوة، بل نصنع تجربة حسية متكاملة. نختار حبوب البن بعناية فائقة من أجود المزارع العالمية ونحمصها بأسلوبنا الخاص لنضمن لك نكهة غنية لا تُنسى.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+                تصميمنا المودرن يجمع بين البساطة والأناقة ليوفر لك بيئة مثالية للعمل، الراحة، أو لقاء من تحب في قلب شارع باريس.
+            </p>
+        </div>
+        <div class="relative">
+            <div class="absolute -inset-2 bg-amber-600/20 rounded-2xl blur-xl"></div>
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=800&auto=format&fit=crop" alt="Coffee Brewing" class="relative rounded-2xl shadow-2xl w-full object-cover h-[400px]">
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section id="menu" class="py-24 bg-[#12141c]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-amber-500 text-sm font-bold uppercase tracking-wider block mb-2">قائمتنا المختارة</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white">منيو سيجريتو المميز</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-[#0b0c10] border border-gray-800 rounded-2xl overflow-hidden group hover:border-amber-600/50 transition duration-300">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop" alt="Latte Art" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">سيجريتو لاتيه</h3>
+                            <span class="text-amber-500 font-bold">28 ج.م</span>
+                        </div>
+                        <p class="text-sm text-gray-400 font-light">خلطتنا السرية من الإسبريسو مع الحليب المبخر ولمسة من الكراميل المملح.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-[#0b0c10] border border-gray-800 rounded-2xl overflow-hidden group hover:border-amber-600/50 transition duration-300">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" alt="V60 Drip Coffee" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">قهوة مختصة V60</h3>
+                            <span class="text-amber-500 font-bold">35 ج.م</span>
+                        </div>
+                        <p class="text-sm text-gray-400 font-light">محضرة بعناية من حبوب بن إثيوبية مجففة ذات إيحاءات فاكهية واضحة.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-[#0b0c10] border border-gray-800 rounded-2xl overflow-hidden group hover:border-amber-600/50 transition duration-300">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=600&auto=format&fit=crop" alt="Pancakes" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-xl font-bold text-white">كرواسون نوتيلا ديلوكس</h3>
+                            <span class="text-amber-500 font-bold">24 ج.م</span>
+                        </div>
+                        <p class="text-sm text-gray-400 font-light">كرواسون فرنسي طازج وهش، محشو ومزين بشوكولاتة النوتيلا الغنية.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section (New Feature) -->
+    <section id="booking" class="py-24 max-w-4xl mx-auto px-6">
+        <div class="bg-[#12141c] border border-gray-800 p-8 md:p-12 rounded-3xl shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-600/10 rounded-full blur-3xl"></div>
+            
+            <div class="text-center mb-10">
+                <span class="text-amber-500 text-sm font-bold uppercase tracking-wider block mb-2">خدمة الحجز المسبق</span>
+                <h2 class="text-3xl font-bold text-white mb-3">احجز طاولتك ومشروبك المفضل</h2>
+                <p class="text-gray-400 text-sm">متوفر لدينا 20 طاولة حصرية بتصاميم مريحة وهادئة.</p>
+            </div>
+
+            <form id="bookingForm" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">الاسم بالكامل</label>
+                        <input type="text" name="fullName" autocomplete="name" maxlength="100" required class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">رقم الهاتف</label>
+                        <input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="20" required class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-2">تاريخ الحجز</label>
+                    <input id="bookingDate" type="date" required
+                        class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition">
+                    <p class="text-xs text-gray-500 mt-2">اختار اليوم اللي عايز تحجز فيه.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">اختر الطاولة (متاح 20 طاولة)</label>
+                        <select id="tableSelect" required class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition">
+                            <!-- JS loop will populate 20 tables -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">المشروب المفضل</label>
+                        <select id="drinkSelect" required class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition">
+                            <option value="سيجريتو لاتيه">سيجريتو لاتيه</option>
+                            <option value="قهوة مختصة V60">قهوة مختصة V60</option>
+                            <option value="إسبريسو">إسبريسو</option>
+                            <option value="كابوتشينو">كابوتشينو</option>
+                            <option value="كرواسون ومشروب ساخن">كرواسون ومشروب ساخن</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">وقت الحجز</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <span class="block text-xs text-gray-500 mb-1">من</span>
+                                <input id="startTime" type="text" inputmode="text" autocomplete="off"
+                                    placeholder="مثال: 09:00 ص" required
+                                    class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
+                            </div>
+                            <div>
+                                <span class="block text-xs text-gray-500 mb-1">إلى</span>
+                                <input id="endTime" type="text" inputmode="text" autocomplete="off"
+                                    placeholder="مثال: 11:00 ص" required
+                                    class="w-full bg-[#0b0c10] border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-amber-500 transition">
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">اكتب الوقت بنفسك بهذا الشكل: 09:00 ص أو 07:30 م.</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 rounded-xl transition duration-300 shadow-lg shadow-amber-600/20">
+                    تأكيد حجز الطاولة والمشروب
+                </button>
+            </form>
+            
+            <div id="successMessage" class="hidden mt-6 p-4 bg-emerald-950/50 border border-emerald-500/30 text-emerald-400 rounded-xl text-center">
+                تم استقبال طلب حجز الطاولة والمشروب بنجاح! ننتظركم في شارع باريس.
+            </div>
+            <p class="text-xs text-gray-500 mt-4 text-center">
+                ملاحظة: الحجز والدفع النهائيان يحتاجان إلى خادم آمن وبوابة دفع حقيقية.
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-amber-500 text-sm font-bold uppercase tracking-wider block mb-2">معرض الصور</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white">عِش الأجواء قبل أن تأتي</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+            <div class="rounded-2xl overflow-hidden bg-[#111217] border border-white/5 aspect-[3/4] flex items-center justify-center">
+                <img src="gallery1.webp" alt="Segreto Cafe" class="w-full h-full object-contain hover:scale-[1.02] transition duration-300 cursor-pointer">
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-[#111217] border border-white/5 aspect-[3/4] flex items-center justify-center">
+                <img src="gallery2.webp" alt="Segreto Cafe Interior" class="w-full h-full object-contain hover:scale-[1.02] transition duration-300 cursor-pointer">
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-[#111217] border border-white/5 aspect-[3/4] flex items-center justify-center">
+                <img src="gallery3.webp" alt="Segreto Coffee" class="w-full h-full object-contain hover:scale-[1.02] transition duration-300 cursor-pointer">
+            </div>
+            <div class="rounded-2xl overflow-hidden bg-[#111217] border border-white/5 aspect-[3/4] flex items-center justify-center">
+                <img src="gallery4.webp" alt="Segreto Cafe" class="w-full h-full object-contain hover:scale-[1.02] transition duration-300 cursor-pointer">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section -->
+    <footer id="contact" class="bg-[#07080c] text-gray-500 text-sm py-12 border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4 font-serif">SEGRETO</h4>
+                <p class="leading-relaxed">كافيه مودرن يقدم أجود أنواع القهوة المختصة والمخبوزات الطازجة في بيئة مريحة وراقية.</p>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4">ساعات العمل</h4>
+                <p class="mb-2">يومياً: من 8:00 صباحاً حتى 12:00 منتصف الليل</p>
+                <p>الجمعة: من 1:00 ظهراً حتى 1:00 صباحاً</p>
+            </div>
+            <div>
+                <h4 class="text-white text-lg font-bold mb-4">العنوان والاتصال</h4>
+                <p class="mb-2">شارع باريس، شبين الكوم، المنوفية</p>
+                <p class="mb-2">هاتف: 01002345678</p>
+                <p class="text-amber-500">info@segretocafe.com</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 pt-6 border-t border-gray-950 text-center text-xs">
+            &copy; 2026 سيجريتو كافيه. جميع الحقوق محفوظة.
+        </div>
+    </footer>
+
+    <script>
+        const tableSelect = document.getElementById('tableSelect');
+        const bookingForm = document.getElementById('bookingForm');
+        const successMessage = document.getElementById('successMessage');
+        const startTimeInput = document.getElementById('startTime');
+        const endTimeInput = document.getElementById('endTime');
+        const drinkSelect = document.getElementById('drinkSelect');
+        const bookingDateInput = document.getElementById('bookingDate');
+
+        // لا يمكن اختيار تاريخ في الماضي.
+        const today = new Date();
+        const todayISO = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+        bookingDateInput.min = todayISO;
+        bookingDateInput.value = todayISO;
+
+        for (let i = 1; i <= 20; i++) {
+            const option = document.createElement('option');
+            option.value = `طاولة رقم ${i}`;
+            option.textContent = `طاولة رقم ${i}`;
+            tableSelect.appendChild(option);
+        }
+
+        const drinkPrices = {
+            'سيجريتو لاتيه': 28,
+            'قهوة مختصة V60': 35,
+            'إسبريسو': 20,
+            'كابوتشينو': 30,
+            'كرواسون ومشروب ساخن': 45
+        };
+
+
+        // Reservations are stored on the server, not in the browser.
+        async function loadTables() {
+            const date = bookingDateInput.value;
+            if (!date) return;
+            try {
+                const res = await fetch(`/api/tables?date=${encodeURIComponent(date)}`);
+                if (!res.ok) throw new Error('tables');
+                const data = await res.json();
+                tableSelect.innerHTML = '';
+                data.tables.forEach(t => {
+                    const option = document.createElement('option');
+                    option.value = t.name;
+                    option.textContent = t.available ? t.name : `${t.name} — محجوز`;
+                    option.disabled = !t.available;
+                    tableSelect.appendChild(option);
+                });
+            } catch {
+                tableSelect.innerHTML = '<option value="">تعذر تحميل الطاولات</option>';
+            }
+        }
+
+        bookingDateInput.addEventListener('change', loadTables);
+        loadTables();
+
+        function showBookingMessage(text, type='red') {
+            successMessage.className = `mt-6 p-4 ${type === 'green' ? 'bg-emerald-950/50 border border-emerald-500/30 text-emerald-400' : 'bg-red-950/50 border border-red-500/30 text-red-400'} rounded-xl text-center`;
+            successMessage.textContent = text;
+            successMessage.classList.remove('hidden');
+        }
+
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const nameInput = bookingForm.querySelector('[name="fullName"]');
+            const phoneInput = bookingForm.querySelector('[name="phone"]');
+
+            const payload = {
+                name: nameInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                bookingDate: bookingDateInput.value,
+                table: tableSelect.value,
+                drink: drinkSelect.value,
+                startTime: startTimeInput.value.trim(),
+                endTime: endTimeInput.value.trim()
+            };
+
+            if (!payload.name || !payload.phone || !payload.bookingDate || !payload.table) {
+                showBookingMessage('اكمل بيانات الحجز أولاً.');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/bookings/hold', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showBookingMessage(data.error || 'تعذر إنشاء الحجز.');
+                    return;
+                }
+
+                pendingReservation = data;
+                document.getElementById('paymentDetails').textContent =
+                    `${data.table} — يوم ${data.bookingDate} — من ${data.startTime} إلى ${data.endTime} — ${data.drink} — ${data.price} ج.م`;
+
+                paymentBox.classList.remove('hidden');
+                paymentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                showBookingMessage('تم حجز الفترة مؤقتًا. أكمل الدفع من بوابة الدفع.', 'green');
+            } catch {
+                showBookingMessage('تعذر الاتصال بالسيرفر.');
+            }
+        });
+
+        document.getElementById('onlinePayment').addEventListener('click', async function() {
+            if (!pendingReservation) return;
+
+            try {
+                const res = await fetch('/api/payments/create-checkout', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({holdId: pendingReservation.holdId})
+                });
+                const data = await res.json();
+
+                if (!res.ok) {
+                    showBookingMessage(data.error || 'تعذر بدء الدفع.');
+                    return;
+                }
+
+                // Placeholder: user asked to leave the payment gateway itself.
+                // The backend returns the future gateway checkout URL.
+                if (data.checkoutUrl) {
+                    window.location.href = data.checkoutUrl;
+                } else {
+                    showBookingMessage('الحجز محفوظ مؤقتًا، لكن بوابة الدفع لم تُربط بعد.');
+                }
+            } catch {
+                showBookingMessage('تعذر الاتصال بالسيرفر.');
+            }
+        });
+
+        loadTables();
+    </script>
+
+</body>
+</html>

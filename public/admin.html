@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>لوحة حجوزات سيجريتو</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f3eadf;color:#2e2118}
+.wrap{max-width:1200px;margin:auto;padding:24px}.card{background:#fffaf4;border:1px solid #e1d2c1;border-radius:18px;box-shadow:0 8px 30px #00000010;padding:20px}
+h1{margin:0 0 6px}.muted{color:#796c61}.hidden{display:none}
+input,button{font:inherit}input{width:100%;padding:13px;border:1px solid #cdbca9;border-radius:10px;margin:8px 0 12px}
+button{border:0;border-radius:10px;padding:12px 18px;cursor:pointer;background:#5d3d27;color:white}.logout{background:#8b2f2f;float:left}
+.error{color:#a22;margin-top:10px}.top{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0}.stat{padding:16px;border-radius:14px;background:#efe2d4}.num{font-size:28px;font-weight:700}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:12px;border-bottom:1px solid #eadfd4;text-align:right}th{background:#ead9c8}
+.badge{padding:5px 9px;border-radius:999px;font-size:12px;background:#e9e0d7}.paid{background:#dcefdc;color:#246024}.held{background:#fff0c9;color:#785b00}.cancelled{background:#f4d8d8;color:#8b2222}
+.notice{position:fixed;left:20px;bottom:20px;background:#2f7d32;color:#fff;padding:14px 18px;border-radius:12px;box-shadow:0 8px 25px #0003;display:none}
+@media(max-width:700px){.wrap{padding:12px}.stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login" class="card" style="max-width:430px;margin:70px auto">
+    <h1>🔐 لوحة الكافيه</h1>
+    <p class="muted">الدخول مخصص لصاحب الكافيه فقط.</p>
+    <input id="password" type="password" placeholder="كلمة مرور الإدارة" autocomplete="current-password">
+    <button id="loginBtn" style="width:100%">دخول</button>
+    <div id="loginError" class="error"></div>
+  </div>
+
+  <div id="dashboard" class="hidden">
+    <div class="top">
+      <div><h1>☕ حجوزات سيجريتو</h1><div class="muted">تتحدث تلقائياً كل 5 ثوانٍ — المؤكد = مدفوع فقط</div></div>
+      <button class="logout" id="logoutBtn">تسجيل الخروج</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="muted">كل الحجوزات</div><div class="num" id="all">0</div></div>
+      <div class="stat"><div class="muted">مدفوعة</div><div class="num" id="paid">0</div></div>
+      <div class="stat"><div class="muted">في انتظار الدفع</div><div class="num" id="held">0</div></div>
+    </div>
+    <div class="card">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>العميل</th><th>الموبايل</th><th>التاريخ</th><th>الطاولة</th><th>الوقت</th><th>المشروب</th><th>السعر</th><th>الحالة</th></tr></thead>
+          <tbody id="rows"><tr><td colspan="8">جاري التحميل...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="notice" class="notice"></div>
+
+<script>
+const login = document.getElementById('login'), dashboard = document.getElementById('dashboard');
+const password = document.getElementById('password'), loginError = document.getElementById('loginError');
+let previousIds = new Set(), firstLoad = true, timer;
+
+async function checkSession(){
+  const r = await fetch('/api/admin/bookings', {credentials:'include'});
+  if(r.ok){ login.classList.add('hidden'); dashboard.classList.remove('hidden'); loadBookings(); }
+}
+async function doLogin(){
+  loginError.textContent='';
+  const r = await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify({password:password.value})});
+  if(!r.ok){loginError.textContent='كلمة المرور غير صحيحة';return}
+  password.value=''; login.classList.add('hidden'); dashboard.classList.remove('hidden'); loadBookings();
+}
+async function loadBookings(){
+  const r = await fetch('/api/admin/bookings',{credentials:'include'});
+  if(r.status===401){logoutUI();return}
+  const data = await r.json();
+  const bookings = data.bookings || data || [];
+  document.getElementById('all').textContent=bookings.length;
+  document.getElementById('paid').textContent=bookings.filter(x=>x.status==='paid').length;
+  document.getElementById('held').textContent=bookings.filter(x=>x.status==='held').length;
+  const ids = new Set(bookings.map(x=>String(x.id)));
+  if(!firstLoad){
+    for(const id of ids) if(!previousIds.has(id)){ showNotice('🔔 حجز جديد وصل للكافيه'); break; }
+  }
+  firstLoad=false; previousIds=ids;
+  document.getElementById('rows').innerHTML = bookings.length ? bookings.map(x=>`
+    <tr>
+      <td>${esc(x.name)}</td><td>${esc(x.phone)}</td><td>${esc(x.bookingDate)}</td>
+      <td>${esc(x.tableName)}</td><td>${esc(x.startTime)} - ${esc(x.endTime)}</td>
+      <td>${esc(x.drink)}</td><td>${esc(x.price)} جنيه</td>
+      <td><span class="badge ${esc(x.status)}">${statusText(x.status)}</span></td>
+    </tr>`).join('') : '<tr><td colspan="8">لا توجد حجوزات حالياً</td></tr>';
+}
+function statusText(s){return s==='paid'?'حجز مؤكد ومدفوع':s==='held'?'غير مؤكد - في انتظار الدفع':s==='cancelled'?'ملغي':s||'غير معروف'}
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function showNotice(t){const n=document.getElementById('notice');n.textContent=t;n.style.display='block';setTimeout(()=>n.style.display='none',4500)}
+async function logoutUI(){clearInterval(timer);login.classList.remove('hidden');dashboard.classList.add('hidden')}
+async function logout(){await fetch('/api/admin/logout',{method:'POST',credentials:'include'});logoutUI()}
+document.getElementById('loginBtn').onclick=doLogin;
+password.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('logoutBtn').onclick=logout;
+checkSession().then(()=>{timer=setInterval(loadBookings,5000)});
+</script>
+</body>
+</html>
