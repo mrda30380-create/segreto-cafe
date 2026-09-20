@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const Database = require('better-sqlite3');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
@@ -22,9 +23,17 @@ app.use(helmet({
 }));
 app.use(express.json({ limit: '20kb' }));
 
+// إعداد مسار قاعدة البيانات للعمل في البيئة السحابية (Vercel /tmp)
+const dbSourcePath = path.join(__dirname, 'segretto.db');
+const dbDestPath = process.env.NODE_ENV === 'production' 
+  ? path.join('/tmp', 'segretto.db') 
+  : (process.env.DB_PATH || dbSourcePath);
 
-const db = new Database(process.env.DB_PATH || path.join(__dirname, 'segretto.db'));
-db.pragma('journal_mode = WAL');
+if (process.env.NODE_ENV === 'production' && fs.existsSync(dbSourcePath) && !fs.existsSync(dbDestPath)) {
+  fs.copyFileSync(dbSourcePath, dbDestPath);
+}
+
+const db = new Database(dbDestPath);
 db.pragma('foreign_keys = ON');
 
 db.exec(`
@@ -183,7 +192,6 @@ app.post('/api/bookings/hold', (req, res) => {
   if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end)
     return res.status(400).json({error:'وقت الحجز غير صالح.'});
 
-  // SQLite transaction makes the server-side conflict check + insert atomic.
   const tx = db.transaction(() => {
     if (conflictExists(bookingDate, table, start, end)) return null;
 
@@ -208,8 +216,6 @@ app.post('/api/bookings/hold', (req, res) => {
   res.status(201).json(result);
 });
 
-// Payment gateway intentionally left unconfigured.
-// Configure PAYMENT_CHECKOUT_URL only after adding the real provider.
 app.post('/api/payments/create-checkout', (req, res) => {
   const {holdId} = req.body || {};
   if (!holdId) return res.status(400).json({error:'الحجز المؤقت غير صالح.'});
@@ -226,7 +232,6 @@ app.post('/api/payments/create-checkout', (req, res) => {
     return res.status(410).json({error:'انتهت مدة الحجز المؤقت.'});
   }
 
-  // Leave actual gateway integration for the user.
   const gateway = process.env.PAYMENT_CHECKOUT_URL;
   if (!gateway) return res.json({checkoutUrl:null});
 
@@ -235,7 +240,6 @@ app.post('/api/payments/create-checkout', (req, res) => {
   res.json({checkoutUrl:url.toString()});
 });
 
-// Simple admin API. Password is read only from environment, never stored in frontend.
 app.post('/api/admin/login', (req, res) => {
   const password = String(req.body?.password || '');
   const expected = String(process.env.ADMIN_PASSWORD || '');
@@ -276,6 +280,10 @@ app.use(express.static(path.join(__dirname, 'public'), {
 
 app.use((req,res) => res.status(404).json({error:'Not found'}));
 
-app.listen(PORT, () => {
-  console.log(`Segreto server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Segreto server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
